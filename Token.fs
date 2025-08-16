@@ -1,5 +1,7 @@
 module Token
 
+open Ast
+
 type TokenKind =
     | Number of float
 
@@ -31,3 +33,14 @@ let lexeme = function
     | RParen -> ")"
 
     | Eof -> ""
+
+let kindToBinOp = function
+    | Plus -> BinaryOp.Plus
+    | Minus -> BinaryOp.Minus
+    | Star -> Times
+    | Slash -> Divide
+    | kind -> failwithf "Internal - Invalid kind: %A" kind
+
+let kindToUnaryOp = function
+    | Minus -> Negate
+    | kind -> failwithf "Internal - Invalid kind: %A" kind
